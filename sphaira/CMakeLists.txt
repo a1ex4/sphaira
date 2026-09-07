@@ -37,6 +37,13 @@ option(ENABLE_DEVOPTAB_SFTP "" OFF)
 
 set(sphaira_VERSION 1.0.7)
 
+# ci stamps a per-build version here so that each published release parses as
+# newer than the build already installed, and so that the nacp version matches
+# the release tag that the in-app updater validates the download against.
+if (DEFINED sphaira_VERSION_OVERRIDE)
+    set(sphaira_VERSION ${sphaira_VERSION_OVERRIDE})
+endif()
+
 project(sphaira
     VERSION ${sphaira_VERSION}
     LANGUAGES C CXX
@@ -65,11 +72,7 @@ execute_process(
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-if (DEFINED sphaira_VERSION_OVERRIDE)
-    set(sphaira_DISPLAY_VERSION "${sphaira_VERSION_OVERRIDE} [${GIT_COMMIT}]")
-else()
-    set(sphaira_DISPLAY_VERSION "${sphaira_VERSION} [${GIT_COMMIT}]")
-endif()
+set(sphaira_DISPLAY_VERSION "${sphaira_VERSION} [${GIT_COMMIT}]")
 
 add_executable(sphaira
     source/ui/menus/appstore.cpp

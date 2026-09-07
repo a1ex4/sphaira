@@ -1,0 +1,82 @@
+name: release
+
+# every push builds and publishes a release, so that a commit can be flashed to
+# hardware through sphaira's own updater instead of copying the nro by hand.
+on:
+  push:
+    branches:
+      - '**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    container: devkitpro/devkita64:latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    # cmake shells out to git for the commit hash / branch, which git refuses to
+    # do when the workspace is owned by a different uid than the container user.
+    - name: Mark workspace as safe for git
+      run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+    # upstream builds against a newer libnx than the image ships and a libgloss
+    # with R-YaTian's iosupport changes; the same steps as its build workflow.
+    - name: Build libgloss and libnx
+      run: |
+        apt-get update
+        apt-get install -y --no-install-recommends texinfo
+        git clone --depth 1 -b iosupport https://github.com/R-YaTian/newlib.git /tmp/newlib
+        (cd /tmp/newlib && bash build-libgloss-local.sh)
+        git clone --depth 1 --recurse-submodules https://github.com/switchbrew/libnx.git /tmp/libnx
+        make -C /tmp/libnx install -j$(nproc)
+
+    # fetch latest cmake
+    - uses: lukka/get-cmake@v3.31.6
+
+    # the updater only offers a release whose tag parses as a newer version than
+    # the running build, and then refuses to install it unless the downloaded
+    # nro's nacp carries that same version. bumping the micro by the run number
+    # keeps both in step and strictly increasing across pushes.
+    - name: Compute version
+      id: version
+      run: |
+        base=$(sed -n 's/^set(sphaira_VERSION \(.*\))$/\1/p' sphaira/CMakeLists.txt)
+        if [ -z "$base" ]; then
+          echo "could not read sphaira_VERSION from sphaira/CMakeLists.txt" >&2
+          exit 1
+        fi
+        major=${base%%.*}
+        rest=${base#*.}
+        minor=${rest%%.*}
+        micro=${rest##*.}
+        echo "version=${major}.${minor}.$((micro + GITHUB_RUN_NUMBER))" >> "$GITHUB_OUTPUT"
+
+    - name: Configure CMake
+      run: cmake --preset Release -Dsphaira_VERSION_OVERRIDE=${{ steps.version.outputs.version }}
+
+    - name: Build
+      run: cmake --build --preset Release --parallel $(nproc)
+
+    # must not be a draft or a prerelease: /releases/latest skips both, and that
+    # is the endpoint the in-app updater polls.
+    - name: Publish release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ steps.version.outputs.version }}
+        name: ${{ steps.version.outputs.version }}
+        body: |
+          ${{ github.ref_name }} @ ${{ github.sha }}
+
+          ${{ github.event.head_commit.message }}
+        draft: false
+        prerelease: false
+        files: build/Release/sphaira.nro
