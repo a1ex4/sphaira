@@ -35,9 +35,10 @@ constexpr auto MAX_THREADS = 4;
 
 std::atomic_bool g_running{};
 CURLSH* g_curl_share{};
-// this is used for single threaded blocking installs.
-// avoids the needed for re-creating the handle each time.
+// the handle for blocking requests, kept so one isn't created for each. any thread
+// can make one, so it is used only under its mutex (see RunBlocking).
 CURL* g_curl_single{};
+Mutex g_curl_single_mutex{};
 Mutex g_mutex_share[CURL_LOCK_DATA_LAST]{};
 
 struct UploadStruct {
@@ -121,8 +122,10 @@ struct Cache {
         log_write("[ETAG] exit\n");
     }
 
+    // the download threads and any thread making a blocking request can all be
+    // in here at once.
     void get(const fs::FsPath& path, curl::Header& header) {
-        ON_SCOPE_EXIT(mutexUnlock(&m_mutex));
+        SCOPED_MUTEX(&m_mutex);
 
         const auto [etag, last_modified] = get_internal(path);
         if (!etag.empty()) {
@@ -135,7 +138,7 @@ struct Cache {
     }
 
     void set(const fs::FsPath& path, const curl::Header& value) {
-        ON_SCOPE_EXIT(mutexUnlock(&m_mutex));
+        SCOPED_MUTEX(&m_mutex);
 
         std::string etag_str;
         std::string last_modified_str;
@@ -1115,32 +1118,59 @@ void Exit() {
     curl_global_cleanup();
 }
 
+namespace {
+
+// runs on g_curl_single when it is free, and on a handle of its own rather than
+// waiting when it isn't: a long download would otherwise hold up every other
+// blocking request. the two behave alike, since what a handle reuses -
+// connections, dns, tls sessions - lives in g_curl_share.
+auto RunBlocking(const Api& e, bool upload) -> ApiResult {
+    const auto run = [&e, upload](CURL* curl) {
+        return upload ? UploadInternal(curl, e) : DownloadInternal(curl, e);
+    };
+
+    if (mutexTryLock(&g_curl_single_mutex)) {
+        ON_SCOPE_EXIT(mutexUnlock(&g_curl_single_mutex));
+        return run(g_curl_single);
+    }
+
+    log_write("[CURL] blocking handle busy, using one of its own\n");
+    const auto curl = curl_easy_init();
+    if (!curl) {
+        return {};
+    }
+    ON_SCOPE_EXIT(curl_easy_cleanup(curl));
+    return run(curl);
+}
+
+} // namespace
+
 auto ToMemory(const Api& e) -> ApiResult {
     if (!e.GetPath().empty()) {
         return {};
     }
-    return DownloadInternal(g_curl_single, e);
+    return RunBlocking(e, false);
 }
 
 auto ToFile(const Api& e) -> ApiResult {
     if (e.GetPath().empty()) {
         return {};
     }
-    return DownloadInternal(g_curl_single, e);
+    return RunBlocking(e, false);
 }
 
 auto FromMemory(const Api& e) -> ApiResult {
     if (!e.GetPath().empty()) {
         return {};
     }
-    return UploadInternal(g_curl_single, e);
+    return RunBlocking(e, true);
 }
 
 auto FromFile(const Api& e) -> ApiResult {
     if (e.GetPath().empty()) {
         return {};
     }
-    return UploadInternal(g_curl_single, e);
+    return RunBlocking(e, true);
 }
 
 auto ToMemoryAsync(const Api& api) -> bool {
