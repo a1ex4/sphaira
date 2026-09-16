@@ -1141,5 +1141,16 @@
   "Homebrew search path removed.": "已移除 Homebrew 搜索路径。",
   "Failed to add Homebrew search path": "无法添加 Homebrew 搜索路径",
   "Failed to remove Homebrew search path": "无法移除 Homebrew 搜索路径",
-  "Screen Off": "关闭屏幕"
+  "Screen Off": "关闭屏幕",
+  "Set the display name of the server.\n\nReplaced by the name the server reports once it has been connected to.": "服务器的显示名称。\n\n连接后会替换为服务器报告的名称。",
+  "Address used to reach the server from the same Wi-Fi network.\n\nAt least one of Local address or Remote address must be set.": "在同一 Wi-Fi 网络下访问服务器的地址。\n\n本地地址与远程地址至少要填一个。",
+  "Address used to reach the server remotely.\n\nAt least one of Local address or Remote address must be set.": "从外部访问服务器的地址。\n\n本地地址与远程地址至少要填一个。",
+  "Optional: username used to log in to the server.": "可选：登录服务器使用的用户名。",
+  "Optional: password used to log in to the server.": "可选：登录服务器使用的密码。",
+  "Saves the Ownfoil server entry.": "保存该 Ownfoil 服务器条目。",
+  "Name and at least one of Local/Remote address must be set!": "必须填写名称，以及本地/远程地址中的至少一个！",
+  "Ownfoil Server": "Ownfoil 服务器",
+  "Local address": "本地地址",
+  "Remote address": "远程地址",
+  "Ownfoil server saved.": "已保存 Ownfoil 服务器。"
 }

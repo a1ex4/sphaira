@@ -1198,5 +1198,16 @@
   "Homebrew search path removed.": "Ruta de búsqueda de Homebrew eliminada.",
   "Failed to add Homebrew search path": "No se pudo añadir la ruta de búsqueda de Homebrew",
   "Failed to remove Homebrew search path": "No se pudo eliminar la ruta de búsqueda de Homebrew",
-  "Screen Off": "Apagar pantalla"
+  "Screen Off": "Apagar pantalla",
+  "Set the display name of the server.\n\nReplaced by the name the server reports once it has been connected to.": "Nombre con el que se muestra el servidor.\n\nSe reemplaza por el nombre que indique el servidor tras conectarse.",
+  "Address used to reach the server from the same Wi-Fi network.\n\nAt least one of Local address or Remote address must be set.": "Dirección para llegar al servidor desde la misma red Wi-Fi.\n\nDebe indicarse al menos Dirección local o Dirección remota.",
+  "Address used to reach the server remotely.\n\nAt least one of Local address or Remote address must be set.": "Dirección para llegar al servidor de forma remota.\n\nDebe indicarse al menos Dirección local o Dirección remota.",
+  "Optional: username used to log in to the server.": "Opcional: usuario para iniciar sesión en el servidor.",
+  "Optional: password used to log in to the server.": "Opcional: contraseña para iniciar sesión en el servidor.",
+  "Saves the Ownfoil server entry.": "Guarda la entrada del servidor Ownfoil.",
+  "Name and at least one of Local/Remote address must be set!": "¡Hacen falta el nombre y al menos una dirección local/remota!",
+  "Ownfoil Server": "Servidor Ownfoil",
+  "Local address": "Dirección local",
+  "Remote address": "Dirección remota",
+  "Ownfoil server saved.": "Servidor Ownfoil guardado."
 }

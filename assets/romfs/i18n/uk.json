@@ -1197,5 +1197,16 @@
   "Homebrew search path removed.": "Шлях пошуку Homebrew видалено.",
   "Failed to add Homebrew search path": "Не вдалося додати шлях пошуку Homebrew",
   "Failed to remove Homebrew search path": "Не вдалося видалити шлях пошуку Homebrew",
-  "Screen Off": "Вимкнути екран"
+  "Screen Off": "Вимкнути екран",
+  "Set the display name of the server.\n\nReplaced by the name the server reports once it has been connected to.": "Відображувана назва сервера.\n\nПісля підключення замінюється назвою, яку повідомить сервер.",
+  "Address used to reach the server from the same Wi-Fi network.\n\nAt least one of Local address or Remote address must be set.": "Адреса для доступу до сервера в тій самій мережі Wi-Fi.\n\nПотрібно вказати Локальну адресу або Віддалену адресу.",
+  "Address used to reach the server remotely.\n\nAt least one of Local address or Remote address must be set.": "Адреса для віддаленого доступу до сервера.\n\nПотрібно вказати Локальну адресу або Віддалену адресу.",
+  "Optional: username used to log in to the server.": "Необов'язково: ім'я користувача для входу на сервер.",
+  "Optional: password used to log in to the server.": "Необов'язково: пароль для входу на сервер.",
+  "Saves the Ownfoil server entry.": "Зберігає запис сервера Ownfoil.",
+  "Name and at least one of Local/Remote address must be set!": "Потрібні назва й хоча б одна локальна/віддалена адреса!",
+  "Ownfoil Server": "Сервер Ownfoil",
+  "Local address": "Локальна адреса",
+  "Remote address": "Віддалена адреса",
+  "Ownfoil server saved.": "Сервер Ownfoil збережено."
 }
