@@ -152,6 +152,7 @@ add_executable(sphaira
     source/utils/devoptab_mounts.cpp
     source/utils/devoptab.cpp
     source/utils/ownfoil.cpp
+    source/utils/ownfoil_discovery.cpp
 
     source/usb/base.cpp
     source/usb/usbds.cpp
