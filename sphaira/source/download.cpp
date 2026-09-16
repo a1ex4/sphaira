@@ -385,23 +385,14 @@ void GetDownloadTempPath(fs::FsPath& buf) {
     std::snprintf(buf, sizeof(buf), "/switch/sphaira/cache/download_temp%lu", count_copy);
 }
 
-auto ProgressCallbackFunc1(void *clientp, curl_off_t dltotal, curl_off_t dlnow, curl_off_t ultotal, curl_off_t ulnow) -> size_t {
-    if (!g_running) {
-        return 1;
-    }
-
-    Yield();
-    return 0;
-}
-
-auto ProgressCallbackFunc2(void *clientp, curl_off_t dltotal, curl_off_t dlnow, curl_off_t ultotal, curl_off_t ulnow) -> size_t {
+auto ProgressCallbackFunc(void *clientp, curl_off_t dltotal, curl_off_t dlnow, curl_off_t ultotal, curl_off_t ulnow) -> size_t {
     auto api = static_cast<Api*>(clientp);
     if (!g_running || api->GetToken().stop_requested()) {
         return 1;
     }
 
     // log_write("pcall called %u %u %u %u\n", dltotal, dlnow, ultotal, ulnow);
-    if (!api->GetOnProgress()(dltotal, dlnow, ultotal, ulnow)) {
+    if (api->GetOnProgress() && !api->GetOnProgress()(dltotal, dlnow, ultotal, ulnow)) {
         return 1;
     }
 
@@ -682,13 +673,10 @@ void SetCommonCurlOptions(CURL* curl, const Api& e) {
         CURL_EASY_SETOPT_LOG(curl, CURLOPT_PORT, (long)e.GetPort());
     }
 
-    // progress calls.
-    if (e.GetOnProgress()) {
-        CURL_EASY_SETOPT_LOG(curl, CURLOPT_XFERINFODATA, &e);
-        CURL_EASY_SETOPT_LOG(curl, CURLOPT_XFERINFOFUNCTION, ProgressCallbackFunc2);
-    } else {
-        CURL_EASY_SETOPT_LOG(curl, CURLOPT_XFERINFOFUNCTION, ProgressCallbackFunc1);
-    }
+    // progress calls, with or without a callback: they are also where a stop token
+    // cancels the request.
+    CURL_EASY_SETOPT_LOG(curl, CURLOPT_XFERINFODATA, &e);
+    CURL_EASY_SETOPT_LOG(curl, CURLOPT_XFERINFOFUNCTION, ProgressCallbackFunc);
 
 }
 auto DownloadInternal(CURL* curl, const Api& e) -> ApiResult {
