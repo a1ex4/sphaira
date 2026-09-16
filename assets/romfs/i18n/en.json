@@ -1218,5 +1218,14 @@
   "Ownfoil Server": "Ownfoil Server",
   "Local address": "Local address",
   "Remote address": "Remote address",
-  "Ownfoil server saved.": "Ownfoil server saved."
+  "Ownfoil server saved.": "Ownfoil server saved.",
+  "Could not parse the server's response": "Could not parse the server's response",
+  "This does not look like an Ownfoil server": "This does not look like an Ownfoil server",
+  "Could not reach the server": "Could not reach the server",
+  "Incorrect username or password": "Incorrect username or password",
+  "Server returned an error": "Server returned an error",
+  "The server rejected the request": "The server rejected the request",
+  "Unexpected response from the server": "Unexpected response from the server",
+  "The shop has no details for this title": "The shop has no details for this title",
+  "No address configured": "No address configured"
 }

@@ -1164,5 +1164,14 @@
   "Ownfoil Server": "Ownfoilサーバー",
   "Local address": "ローカルアドレス",
   "Remote address": "リモートアドレス",
-  "Ownfoil server saved.": "Ownfoilサーバーを保存しました。"
+  "Ownfoil server saved.": "Ownfoilサーバーを保存しました。",
+  "Could not parse the server's response": "サーバーの応答を解析できませんでした",
+  "This does not look like an Ownfoil server": "Ownfoilサーバーではないようです",
+  "Could not reach the server": "サーバーに接続できませんでした",
+  "Incorrect username or password": "ユーザー名またはパスワードが違います",
+  "Server returned an error": "サーバーがエラーを返しました",
+  "The server rejected the request": "サーバーがリクエストを拒否しました",
+  "Unexpected response from the server": "サーバーから予期しない応答がありました",
+  "The shop has no details for this title": "ショップにこのタイトルの詳細がありません",
+  "No address configured": "アドレスが設定されていません"
 }

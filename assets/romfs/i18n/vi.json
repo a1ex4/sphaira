@@ -1208,5 +1208,14 @@
   "Ownfoil Server": "Máy chủ Ownfoil",
   "Local address": "Địa chỉ nội bộ",
   "Remote address": "Địa chỉ từ xa",
-  "Ownfoil server saved.": "Đã lưu máy chủ Ownfoil."
+  "Ownfoil server saved.": "Đã lưu máy chủ Ownfoil.",
+  "Could not parse the server's response": "Không thể phân tích phản hồi của máy chủ",
+  "This does not look like an Ownfoil server": "Đây có vẻ không phải máy chủ Ownfoil",
+  "Could not reach the server": "Không thể kết nối tới máy chủ",
+  "Incorrect username or password": "Sai tên người dùng hoặc mật khẩu",
+  "Server returned an error": "Máy chủ trả về lỗi",
+  "The server rejected the request": "Máy chủ đã từ chối yêu cầu",
+  "Unexpected response from the server": "Phản hồi bất thường từ máy chủ",
+  "The shop has no details for this title": "Cửa hàng không có thông tin về tựa game này",
+  "No address configured": "Chưa cấu hình địa chỉ"
 }

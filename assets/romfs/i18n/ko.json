@@ -1227,5 +1227,14 @@
   "Ownfoil Server": "Ownfoil 서버",
   "Local address": "로컬 주소",
   "Remote address": "원격 주소",
-  "Ownfoil server saved.": "Ownfoil 서버를 저장했습니다."
+  "Ownfoil server saved.": "Ownfoil 서버를 저장했습니다.",
+  "Could not parse the server's response": "서버 응답을 해석하지 못했습니다",
+  "This does not look like an Ownfoil server": "Ownfoil 서버가 아닌 것 같습니다",
+  "Could not reach the server": "서버에 연결하지 못했습니다",
+  "Incorrect username or password": "사용자 이름 또는 비밀번호가 올바르지 않습니다",
+  "Server returned an error": "서버가 오류를 반환했습니다",
+  "The server rejected the request": "서버가 요청을 거부했습니다",
+  "Unexpected response from the server": "서버에서 예기치 않은 응답이 왔습니다",
+  "The shop has no details for this title": "상점에 이 타이틀의 상세 정보가 없습니다",
+  "No address configured": "설정된 주소가 없습니다"
 }

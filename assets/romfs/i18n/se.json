@@ -1208,5 +1208,14 @@
   "Ownfoil Server": "Ownfoil-server",
   "Local address": "Lokal adress",
   "Remote address": "Fjärradress",
-  "Ownfoil server saved.": "Ownfoil-servern sparades."
+  "Ownfoil server saved.": "Ownfoil-servern sparades.",
+  "Could not parse the server's response": "Det gick inte att tolka serverns svar",
+  "This does not look like an Ownfoil server": "Det här verkar inte vara en Ownfoil-server",
+  "Could not reach the server": "Det gick inte att nå servern",
+  "Incorrect username or password": "Fel användarnamn eller lösenord",
+  "Server returned an error": "Servern returnerade ett fel",
+  "The server rejected the request": "Servern avvisade begäran",
+  "Unexpected response from the server": "Oväntat svar från servern",
+  "The shop has no details for this title": "Butiken har inga detaljer om den här titeln",
+  "No address configured": "Ingen adress konfigurerad"
 }

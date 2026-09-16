@@ -1206,5 +1206,14 @@
   "Ownfoil Server": "Сервер Ownfoil",
   "Local address": "Локальный адрес",
   "Remote address": "Удалённый адрес",
-  "Ownfoil server saved.": "Сервер Ownfoil сохранён."
+  "Ownfoil server saved.": "Сервер Ownfoil сохранён.",
+  "Could not parse the server's response": "Не удалось разобрать ответ сервера",
+  "This does not look like an Ownfoil server": "Похоже, это не сервер Ownfoil",
+  "Could not reach the server": "Не удалось связаться с сервером",
+  "Incorrect username or password": "Неверное имя пользователя или пароль",
+  "Server returned an error": "Сервер вернул ошибку",
+  "The server rejected the request": "Сервер отклонил запрос",
+  "Unexpected response from the server": "Неожиданный ответ от сервера",
+  "The shop has no details for this title": "В магазине нет сведений об этой игре",
+  "No address configured": "Адрес не задан"
 }

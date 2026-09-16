@@ -1153,5 +1153,14 @@
   "Ownfoil Server": "Ownfoil 伺服器",
   "Local address": "本機位址",
   "Remote address": "遠端位址",
-  "Ownfoil server saved.": "已儲存 Ownfoil 伺服器。"
+  "Ownfoil server saved.": "已儲存 Ownfoil 伺服器。",
+  "Could not parse the server's response": "無法解析伺服器的回應",
+  "This does not look like an Ownfoil server": "這似乎不是 Ownfoil 伺服器",
+  "Could not reach the server": "無法連線到伺服器",
+  "Incorrect username or password": "使用者名稱或密碼不正確",
+  "Server returned an error": "伺服器傳回了錯誤",
+  "The server rejected the request": "伺服器拒絕了該請求",
+  "Unexpected response from the server": "伺服器傳回了非預期的回應",
+  "The shop has no details for this title": "商店沒有該遊戲的詳細資訊",
+  "No address configured": "未設定任何位址"
 }

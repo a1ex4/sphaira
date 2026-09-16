@@ -1216,5 +1216,14 @@
   "Ownfoil Server": "Ownfoil-Server",
   "Local address": "Lokale Adresse",
   "Remote address": "Externe Adresse",
-  "Ownfoil server saved.": "Ownfoil-Server gespeichert."
+  "Ownfoil server saved.": "Ownfoil-Server gespeichert.",
+  "Could not parse the server's response": "Die Antwort des Servers konnte nicht gelesen werden",
+  "This does not look like an Ownfoil server": "Das scheint kein Ownfoil-Server zu sein",
+  "Could not reach the server": "Der Server war nicht erreichbar",
+  "Incorrect username or password": "Benutzername oder Passwort falsch",
+  "Server returned an error": "Der Server hat einen Fehler gemeldet",
+  "The server rejected the request": "Der Server hat die Anfrage abgelehnt",
+  "Unexpected response from the server": "Unerwartete Antwort vom Server",
+  "The shop has no details for this title": "Der Shop hat keine Details zu diesem Titel",
+  "No address configured": "Keine Adresse eingerichtet"
 }

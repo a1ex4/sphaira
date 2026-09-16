@@ -1206,5 +1206,14 @@
   "Ownfoil Server": "Ownfoil-server",
   "Local address": "Lokaal adres",
   "Remote address": "Extern adres",
-  "Ownfoil server saved.": "Ownfoil-server opgeslagen."
+  "Ownfoil server saved.": "Ownfoil-server opgeslagen.",
+  "Could not parse the server's response": "Kan het antwoord van de server niet verwerken",
+  "This does not look like an Ownfoil server": "Dit lijkt geen Ownfoil-server te zijn",
+  "Could not reach the server": "Kan de server niet bereiken",
+  "Incorrect username or password": "Onjuiste gebruikersnaam of wachtwoord",
+  "Server returned an error": "De server gaf een fout terug",
+  "The server rejected the request": "De server heeft het verzoek geweigerd",
+  "Unexpected response from the server": "Onverwacht antwoord van de server",
+  "The shop has no details for this title": "De winkel heeft geen details over deze titel",
+  "No address configured": "Geen adres ingesteld"
 }
