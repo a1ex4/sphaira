@@ -14,6 +14,7 @@ A homebrew menu for the Nintendo Switch.
 ![Img](assets/screenshots/appstore.jpg) | ![Img](assets/screenshots/appstore_page.jpg)
 ![Img](assets/screenshots/file_browser.jpg) | ![Img](assets/screenshots/launch_options.jpg)
 ![Img](assets/screenshots/themezer.jpg) | ![Img](assets/screenshots/web.jpg)
+![Img](assets/screenshots/ownfoil_main.jpg) | ![Img](assets/screenshots/ownfoil_details.jpg)
 
 ## Bug reports
 
@@ -78,6 +79,17 @@ A few NTFS notes:
 - A drive left behind by Windows fast startup / hibernation is not mounted by default. `Mount hibernated NTFS`
   in the HDD options forces it, at the cost of the saved Windows session.
 - NTFS is noticeably slower than exFAT. For installing large files, exFAT is the better choice.
+
+### Ownfoil (install)
+
+[Ownfoil](https://github.com/a1ex4/ownfoil) is a self-hosted Nintendo Switch library manager, automating library curation tasks and making backups available to install directly on your console.
+
+Local servers are found automatically on the network, so there is no ip or port to type in. Each server can have both a local and a remote address, over http or https, and signs in with a user account.
+
+The library is browsed by *content*, not by files: pick a game, a version and the dlc you want, and Sphaira works out which files it needs, however they are bundled (several nsp, or a multi content nsp / xci).  
+Only what you picked is downloaded and installed. nsp, nsz, xci and xcz are supported, and a download survives a broken connection, resuming for up to 60s.
+
+Entries are listed under `New games`, `Updates`, `DLC`, `All games` and `Search`, paginated and sortable. All artwork is served by the Ownfoil server, so the switch never connects to Nintendo's servers.
 
 ## Building from source
 

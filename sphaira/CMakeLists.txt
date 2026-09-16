@@ -73,6 +73,8 @@ endif()
 
 add_executable(sphaira
     source/ui/menus/appstore.cpp
+    source/ui/menus/ownfoil.cpp
+    source/ui/menus/ownfoil_title.cpp
     source/ui/menus/file_viewer.cpp
     source/ui/menus/image_viewer.cpp
     source/ui/menus/filebrowser.cpp
