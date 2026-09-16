@@ -104,6 +104,21 @@ cmake --build --preset MinSizeRel
 
 The output will be found in `build/MinSizeRel/sphaira.nro`
 
+### Using Docker
+
+If you would rather not install and manage devkitPro on your machine, the nro can be built in a docker container instead, with the following tool:
+
+```sh
+tools/nro-builder/build.sh [Release|Dev|Lite] [--send]
+```
+
+The first run builds the image, which holds the same devkitA64 toolchain the release workflow uses, plus ninja and ccache.
+The first build takes longer but after that only what you changed is compiled.
+
+`Release` is the default and is what the release workflow publishes. `Dev` skips LTO, so a one file change is immediate.
+
+The output will be found in `build/<preset>/sphaira.nro`. Add `--send` to send it straight to the console over `nxlink` (enable it in the Network options) and follow its log.
+
 ## Credits
 
 - [borealis](https://github.com/natinusala/borealis)
