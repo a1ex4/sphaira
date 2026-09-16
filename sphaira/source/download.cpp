@@ -618,7 +618,7 @@ void SetCommonCurlOptions(CURL* curl, const Api& e) {
     CURL_EASY_SETOPT_LOG(curl, CURLOPT_FOLLOWLOCATION, 1L);
     CURL_EASY_SETOPT_LOG(curl, CURLOPT_SSL_VERIFYPEER, 0L);
     CURL_EASY_SETOPT_LOG(curl, CURLOPT_SSL_VERIFYHOST, 0L);
-    CURL_EASY_SETOPT_LOG(curl, CURLOPT_FAILONERROR, 1L);
+    CURL_EASY_SETOPT_LOG(curl, CURLOPT_FAILONERROR, (e.GetFlags() & Flag_KeepErrorBody) ? 0L : 1L);
     CURL_EASY_SETOPT_LOG(curl, CURLOPT_NOPROGRESS, 0L);
     CURL_EASY_SETOPT_LOG(curl, CURLOPT_SHARE, g_curl_share);
     CURL_EASY_SETOPT_LOG(curl, CURLOPT_BUFFERSIZE, 1024*512);
@@ -666,6 +666,11 @@ void SetCommonCurlOptions(CURL* curl, const Api& e) {
 
     // set auth.
     if (!e.GetUserPass().m_user.empty()) {
+        // CURLAUTH_ANY has no scheme until the server challenges, so libcurl
+        // probes unauthenticated first; naming basic up front skips that.
+        if (e.GetPreemptiveAuth() && e.GetBearer().empty()) {
+            CURL_EASY_SETOPT_LOG(curl, CURLOPT_HTTPAUTH, (long)CURLAUTH_BASIC);
+        }
         CURL_EASY_SETOPT_LOG(curl, CURLOPT_USERPWD, e.GetUserPass().m_user.c_str());
     }
     if (!e.GetUserPass().m_pass.empty()) {
