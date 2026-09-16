@@ -98,6 +98,7 @@ add_executable(sphaira
     source/ui/nvg_util.cpp
     source/ui/option_box.cpp
     source/ui/popup_list.cpp
+    source/ui/popup_multi_select.cpp
     source/ui/progress_box.cpp
     source/ui/scrollable_text.cpp
     source/ui/sidebar.cpp
