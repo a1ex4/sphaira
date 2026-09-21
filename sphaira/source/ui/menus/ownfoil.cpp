@@ -69,22 +69,16 @@ constexpr SortMode SORT_MODES[] = {
 struct CategoryMode {
     sphaira::ownfoil::api::Category category;
     const char* name; // shown in the panel, translated at use.
-    const char* info;
 };
 
 // the first is what every connect opens on: what the shop can add to this
 // console is the reason to open it.
 constexpr CategoryMode CATEGORIES[] = {
-    {sphaira::ownfoil::api::Category::NewGames, "New games",
-        "Games the shop has that aren't installed here."},
-    {sphaira::ownfoil::api::Category::Updates, "Updates",
-        "Games installed here that the shop has a newer version of."},
-    {sphaira::ownfoil::api::Category::Dlc, "DLC",
-        "Add-ons for games installed here that aren't installed."},
-    {sphaira::ownfoil::api::Category::All, "All games",
-        "Every game the shop can serve."},
-    {sphaira::ownfoil::api::Category::Search, "Search",
-        "Find a game in the shop by name or id."},
+    {sphaira::ownfoil::api::Category::NewGames, "New games"},
+    {sphaira::ownfoil::api::Category::Updates, "Updates"},
+    {sphaira::ownfoil::api::Category::Dlc, "DLC"},
+    {sphaira::ownfoil::api::Category::All, "All games"},
+    {sphaira::ownfoil::api::Category::Search, "Search"},
 };
 
 // looked up once: the '-' action is re-asserted every frame the catalog is up.
@@ -1063,7 +1057,7 @@ void Menu::SetCatalogTitle() {
     // until a page answers, "0 titles" would read as a claim about the shop
     // rather than about the wait.
     if (m_total > 0) {
-        char total[32];
+        char total[64];
         std::snprintf(total, sizeof(total), "%ld titles"_i18n.c_str(), m_total);
         title += SEPARATOR;
         title += total;
@@ -1097,7 +1091,7 @@ void Menu::ShowCategories() {
             SetCatalogTitle();
             // a different catalog, so there is no page of the old one to stay on.
             LoadPage(0);
-        }, true, i18n::get(mode.info));
+        }, true);
     }
 }
 
@@ -1131,7 +1125,7 @@ void Menu::ShowOptions() {
             App::Push<sphaira::ownfoil::OwnfoilForm>(sphaira::ownfoil::Config{}, [this](const auto&){
                 ReloadSaved();
             });
-        }, true, "Add a server by hand, for one the network search can't reach."_i18n);
+        }, true, "Add a server."_i18n);
 
         // not on Y: MainMenu claims it for its menu picker while this is a tab.
         if (!m_focus_discover && m_index < static_cast<s64>(m_candidates.size())) {
@@ -1154,7 +1148,7 @@ void Menu::ShowOptions() {
         options->Add<SidebarEntryArray>("View"_i18n, view_items, [this](s64& index_out){
             m_view.Set(index_out);
             OnViewChange();
-        }, m_view.Get(), "Change how titles are shown. Also cycled with -."_i18n);
+        }, m_view.Get(), "Change titles view. Also cycled with -."_i18n);
 
         SidebarEntryArray::Items page_items;
         s64 page_index{};
@@ -1173,7 +1167,7 @@ void Menu::ShowOptions() {
             m_page_size.Set(size);
             // the page boundaries have moved, so there is no page to stay on.
             LoadPage(0);
-        }, page_index, "How many titles the shop sends per page. Fewer is quicker to open."_i18n);
+        }, page_index, "How many titles displayed per page."_i18n);
 
         SidebarEntryArray::Items sort_items;
         for (const auto& mode : SORT_MODES) {
@@ -1188,7 +1182,7 @@ void Menu::ShowOptions() {
             }
             m_sort.Set(index_out);
             LoadPage(0);
-        }, m_sort.Get(), "What the shop orders the catalog by."_i18n);
+        }, m_sort.Get());
 
         // two states, so A flips it in place rather than opening a picker. stored
         // here, not through the OptionBool overload, which runs its callback
@@ -1196,7 +1190,7 @@ void Menu::ShowOptions() {
         options->Add<SidebarEntryBool>("Order"_i18n, m_sort_desc.Get(), [this](bool& descending){
             m_sort_desc.Set(descending);
             LoadPage(0);
-        }, "Which way that order runs."_i18n, "Descending"_i18n, "Ascending"_i18n);
+        }, "", "Descending"_i18n, "Ascending"_i18n);
 
         // last: it leaves the catalog, where everything above adjusts it.
         options->Add<SidebarEntryCallback>("Servers list"_i18n, [this](){
@@ -1222,8 +1216,8 @@ void Menu::ShowOptions() {
                     R_UNLESS(R_SUCCEEDED(rc) || rc == FsError_PathNotFound, rc);
                     R_SUCCEED();
                 }, [](Result rc) {
-                    if (R_SUCCEEDED(App::PushErrorBox(rc, "Failed to clear the cache"_i18n))) {
-                        App::Notify("Cache cleared"_i18n);
+                    if (R_SUCCEEDED(App::PushErrorBox(rc, "Failed to clear the cache."_i18n))) {
+                        App::Notify("Cache cleared."_i18n);
                     }
                 });
             }

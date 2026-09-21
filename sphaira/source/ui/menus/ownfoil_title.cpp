@@ -837,7 +837,7 @@ void TitleMenu::UpdateActions() {
                 break;
 
             case MainAction::View:
-                SetAction(Button::A, Action{"View"_i18n, [this]{
+                SetAction(Button::A, Action{"Open"_i18n, [this]{
                     OpenDlc(m_focus);
                 }});
                 break;
@@ -876,7 +876,7 @@ void TitleMenu::ShowInstallOptions() {
 
     options->Add<SidebarEntryCallback>("Install options"_i18n, [](){
         App::DisplayInstallOptions(false);
-    }, "Change the options every install on this console uses."_i18n);
+    });
 
     // Install names what it would do and the rows above change that, but they are
     // added first, so they reach it through this, filled in once it exists.
@@ -903,7 +903,7 @@ void TitleMenu::ShowInstallOptions() {
         const auto picker = options->Add<SidebarEntryArray>("Version"_i18n, items, [this, relabel](s64& index){
             m_install_version = index;
             relabel();
-        }, m_install_version, "Which of the versions the shop holds to install."_i18n);
+        }, m_install_version);
 
         // asked as the list is drawn, so turning Allow downgrade on under Install
         // options lights the older updates up the next time the list is opened.
@@ -927,7 +927,7 @@ void TitleMenu::ShowInstallOptions() {
             }
         }
 
-        const auto addons = options->Add<SidebarEntryTextBase>("Add-on content"_i18n, GetAddonCount(), SidebarEntryTextBase::Callback{}, "Which of the game's add-ons to install with it."_i18n);
+        const auto addons = options->Add<SidebarEntryTextBase>("Add-on content"_i18n, GetAddonCount(), SidebarEntryTextBase::Callback{});
         addons->SetCallback([this, addons, relabel](){
             ShowAddons([this, addons, relabel](){
                 addons->SetValue(GetAddonCount());
@@ -938,7 +938,7 @@ void TitleMenu::ShowInstallOptions() {
 
     *install = options->Add<SidebarEntryCallback>(GetInstallLabel(), [this](){
         Install();
-    }, "Download and install what is chosen above."_i18n);
+    }, "Download and install selection."_i18n);
 
     // asked as the menu draws, so the version, the add-ons and Allow downgrade all
     // move it. the reason is set once, so it holds for every version it greys on.
@@ -946,7 +946,7 @@ void TitleMenu::ShowInstallOptions() {
         return HasSomethingToInstall();
     }, m_page.dlc
         ? "This add-on is already installed."_i18n
-        : "Nothing to install: the console already has this version or a newer one, and no add-on is ticked. An older update can be installed by turning on Allow downgrade in Install options."_i18n);
+        : "Nothing to install: the console already has this version or a newer one, and no add-on is ticked."_i18n);
 
     // the menu opens on Install, which is what it is opened for: everything
     // above it only qualifies that press.

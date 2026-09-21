@@ -49,13 +49,13 @@ void OwnfoilForm::SetupButtons() {
 
     m_local_address = this->Add<SidebarEntryTextInput>(
         "Local address"_i18n, m_config.local_address, "", "", -1, PATH_MAX,
-        "Address used to reach the server on the local network, e.g. 192.168.1.50:8465.\n\n"
+        "Address used to reach the server from the same Wi-Fi network.\n\n"
         "At least one of Local address or Remote address must be set."_i18n
     );
 
     m_remote_address = this->Add<SidebarEntryTextInput>(
         "Remote address"_i18n, m_config.remote_address, "", "", -1, PATH_MAX,
-        "Address used to reach the server remotely, e.g. myshop.example.com.\n\n"
+        "Address used to reach the server remotely.\n\n"
         "At least one of Local address or Remote address must be set."_i18n
     );
 
